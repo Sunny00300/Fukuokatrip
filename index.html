@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#161614">
+<title>福岡五天四夜旅遊行程</title>
+<style>
+
+:root { --ink:#161614; --paper:#eeede8; --accent:#e9ff00; --accent-soft:#dfff88; }
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { margin:0; background:#d4d2cb; color:var(--ink); font-family:"Helvetica Neue","PingFang TC","Noto Sans TC",Arial,sans-serif; font-weight:300; }
+button,a { color:inherit; } button { font:inherit; font-weight:300; }
+.app-shell { width:100%; max-width:430px; min-height:100vh; margin:0 auto; background:var(--paper); overflow:hidden; transition:background .25s ease; }
+.tone-lime { --accent:#e9ff00; --accent-soft:#dfff88; }.tone-lilac { --accent:#b794f6; --accent-soft:#dccbff; }.tone-mint { --accent:#a8d5ad; --accent-soft:#d4ead3; }.tone-orange { --accent:#ff8c58; --accent-soft:#ffc2a6; }.tone-blue { --accent:#92b9ff; --accent-soft:#c8dbff; }
+.topbar { min-height:78px; padding:17px 20px; display:grid; grid-template-columns:1fr auto auto; gap:18px; align-items:center; }
+.hotel-bar { margin:0 13px 13px; padding:14px 15px; min-height:70px; display:flex; align-items:center; justify-content:space-between; gap:12px; border-radius:5px; background:#fff; text-decoration:none; }
+.hotel-bar span { display:flex; min-width:0; flex-direction:column; gap:5px; }.hotel-bar small { font-size:7px; font-weight:400; letter-spacing:.14em; }.hotel-bar strong { overflow:hidden; font-size:13px; font-weight:300; letter-spacing:-.02em; text-overflow:ellipsis; white-space:nowrap; }.hotel-bar b { flex:0 0 auto; padding:10px 11px; border-radius:999px; background:var(--ink); color:#fff; font-size:8px; font-weight:400; letter-spacing:.1em; }
+.brand { font-size:20px; font-weight:400; letter-spacing:-.05em; text-decoration:none; }.brand span { font-size:12px; margin-left:5px; }
+.trip-range { margin:0; font-size:8px; line-height:1.45; letter-spacing:.1em; text-align:right; }
+.menu-button { width:36px; height:36px; padding:9px; display:flex; flex-direction:column; justify-content:center; gap:6px; border:0; border-radius:50%; background:var(--ink); }
+.menu-button svg { width:18px; height:18px; fill:none; stroke:#fff; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; }
+.intro { min-height:320px; padding:30px 20px 22px; position:relative; display:flex; align-items:flex-end; background:linear-gradient(142deg,var(--paper) 0 62%,var(--accent-soft) 62%); }
+.eyebrow,.day-heading p,.notes>p { margin:0 0 12px; font-size:9px; font-weight:400; letter-spacing:.15em; }
+.intro h1 { margin:0; font-size:58px; font-weight:200; line-height:.92; letter-spacing:-.075em; }
+.geo-mark { position:absolute; top:28px; right:20px; display:flex; flex-direction:column; align-items:flex-end; font-size:8px; line-height:1.6; letter-spacing:.05em; }
+.flower { position:absolute; display:grid; place-items:center; font-weight:200; line-height:1; }.flower-one { right:34px; bottom:35px; font-size:48px; transform:rotate(14deg); }.flower-two { right:112px; bottom:98px; font-size:21px; }
+.date-tabs { padding:8px; display:grid; grid-template-columns:repeat(5,1fr); gap:5px; background:var(--ink); }
+.date-tabs button { min-width:0; height:70px; padding:10px 3px; display:flex; flex-direction:column; align-items:center; justify-content:space-between; border:0; border-radius:4px; background:#2a2a27; color:#fff; cursor:pointer; }
+.date-tabs span { font-size:8px; letter-spacing:.08em; }.date-tabs strong { font-size:13px; font-weight:300; }.date-tabs button.active { background:var(--accent); color:var(--ink); }
+.day-heading { min-height:222px; padding:24px 20px; position:relative; display:flex; justify-content:space-between; align-items:flex-end; background:var(--accent); }
+.day-heading h2 { margin:0; font-family:Georgia,"Times New Roman",serif; font-size:67px; font-weight:700; line-height:.82; letter-spacing:-.065em; }
+.shape { width:102px; height:102px; display:grid; place-items:center; border-radius:50% 50% 46% 54%/58% 44% 56% 42%; background:var(--ink); transform:rotate(18deg); }.shape span { color:var(--accent); font-size:44px; font-weight:200; transform:rotate(-18deg); }
+.mini-flower { position:absolute; top:24px; right:22px; font-size:23px; }
+.schedule { padding:13px; display:grid; gap:10px; background:var(--paper); }
+.schedule-card { display:grid; grid-template-columns:86px minmax(0,1fr); width:100%; min-height:192px; overflow:hidden; border-radius:5px; background:#f8f7f2; cursor:pointer; transition:opacity .18s ease,transform .18s ease,background .18s ease; }.schedule-card:active { transform:scale(.985); }.schedule-card:focus-visible { outline:2px solid var(--ink); outline-offset:2px; }.schedule-card.completed { background:#d9d9d2; }.schedule-card.completed .time-block { background:#c9c9c1; }.schedule-card.completed h3,.schedule-card.completed .placeholder { opacity:.52; text-decoration:line-through; }.schedule-card.completed .event-meta { opacity:.45; }
+.time-block { padding:16px 11px; display:flex; flex-direction:column; justify-content:space-between; background:var(--accent-soft); }
+.time-block span,.event-type { font-size:8px; font-weight:400; letter-spacing:.13em; }.time-block time { font-size:22px; font-weight:300; letter-spacing:-.04em; }
+.event-block { padding:16px; position:relative; }.event-type { margin:0; }.card-status { min-height:30px; margin:0 0 12px; display:flex; align-items:flex-start; justify-content:space-between; gap:8px; }.card-status>span { font-size:8px; font-weight:400; letter-spacing:.06em; white-space:nowrap; }.event-block h3 { margin:0 0 7px; font-size:24px; font-weight:300; letter-spacing:-.04em; }
+.placeholder { margin:0; max-width:240px; color:#666660; font-size:11px; font-weight:300; line-height:1.65; }
+.event-meta { margin-top:17px; padding-top:10px; padding-right:76px; display:flex; justify-content:space-between; gap:8px; border-top:1px solid rgba(22,22,20,.2); font-size:8px; }.map-button { position:absolute; right:12px; bottom:11px; min-width:66px; height:30px; padding:0 10px; display:flex; align-items:center; justify-content:center; gap:6px; border-radius:999px; background:var(--ink); color:#fff; font-size:8px; font-weight:400; letter-spacing:.08em; text-decoration:none; }.map-button .pin { width:7px; height:7px; position:relative; display:block; color:var(--accent); font-size:7px; line-height:1; }
+.notes { min-height:225px; margin:0 13px 13px; padding:23px 18px; position:relative; overflow:hidden; border-radius:5px; background:#b99af4; }.notes:after { content:"✦"; position:absolute; right:18px; top:17px; font-size:35px; }
+.notes h2 { margin:0 0 35px; font-size:34px; font-weight:200; letter-spacing:-.05em; }.note-lines { display:grid; gap:18px; }.note-lines span { height:1px; background:rgba(17,17,15,.3); }
+footer { padding:18px 20px 24px; display:flex; justify-content:space-between; background:var(--ink); color:#fff; font-size:7px; letter-spacing:.12em; }
+.modal-backdrop { position:fixed; z-index:50; inset:0; padding:20px; display:flex; align-items:flex-end; justify-content:center; background:rgba(18,18,16,.52); backdrop-filter:blur(5px); }.transport-modal { width:100%; max-width:404px; min-height:315px; padding:25px 20px; position:relative; border-radius:12px 12px 5px 5px; background:var(--paper); box-shadow:0 -16px 45px rgba(0,0,0,.18); }.transport-modal>p { margin:0 0 8px; font-size:8px; font-weight:400; letter-spacing:.14em; }.transport-modal h2 { margin:0; font-size:36px; font-weight:200; letter-spacing:-.05em; }.modal-close { position:absolute; top:17px; right:17px; width:36px; height:36px; border:0; border-radius:50%; background:var(--ink); color:#fff; font-size:20px; font-weight:200; }.transport-placeholder { height:150px; margin-top:28px; display:grid; place-items:center; border-radius:5px; background:#deddd7; color:#777770; font-size:10px; letter-spacing:.08em; }
+
+@keyframes flowerFloat { 0% { transform:rotate(14deg) translateY(0); } 50% { transform:rotate(194deg) translateY(-9px); } 100% { transform:rotate(374deg) translateY(0); } }
+@keyframes sparkleTurn { 0% { transform:rotate(0deg) scale(1); opacity:1; } 50% { transform:rotate(180deg) scale(.78); opacity:.55; } 100% { transform:rotate(360deg) scale(1); opacity:1; } }
+@keyframes shapeBreathe { 0%,100% { transform:rotate(18deg) scale(1); } 50% { transform:rotate(23deg) scale(1.035); } }
+@keyframes noteSpark { 0% { transform:scale(1) rotate(0deg); opacity:1; } 50% { transform:scale(.75) rotate(180deg); opacity:.5; } 100% { transform:scale(1) rotate(360deg); opacity:1; } }
+.flower-one { animation:flowerFloat 4.8s linear infinite; }
+.flower-two,.mini-flower { animation:sparkleTurn 3.2s linear infinite; transform-origin:center; }
+.mini-flower { animation-delay:-1.4s; }
+.shape { animation:shapeBreathe 6s ease-in-out infinite; }
+.notes:after { animation:noteSpark 3.8s linear infinite; transform-origin:center; }
+@media (min-width:500px) { body { padding:28px 0; }.app-shell { border-radius:8px; box-shadow:0 18px 55px rgba(0,0,0,.16); } }
+@media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto!important; transition:none!important; animation:none!important; } }
+
+/* Full itinerary content */
+.hotel-bar span{gap:4px}.hotel-bar em{overflow:hidden;color:#777770;font-size:8px;font-style:normal;text-overflow:ellipsis;white-space:nowrap}
+.day-heading{min-height:235px}.day-heading h3{width:230px;margin:17px 0 0;font-size:14px;font-weight:300;line-height:1.45}
+.traffic-note{margin:0;padding:15px 18px 4px;background:var(--paper);color:#666660;font-size:10px;line-height:1.5}
+.schedule{grid-template-columns:1fr}.schedule-card{grid-template-columns:92px minmax(0,1fr);min-height:176px}
+.schedule-card.completed h3,.schedule-card.completed .jp-name,.schedule-card.completed .event-detail,.schedule-card.completed .event-note{opacity:.52;text-decoration:line-through}
+.time-block time{font-size:17px;line-height:1.25;overflow-wrap:anywhere}
+.event-block{padding:16px 15px 55px}.event-type{line-height:1.35}.card-status{min-height:25px;margin-bottom:10px}.event-block h3{margin:8px 0 7px;font-size:20px;line-height:1.25;overflow-wrap:anywhere}
+.status-badge{display:inline-flex;padding:5px 8px;border-radius:999px;background:var(--accent);font-size:9px;font-weight:400}
+.jp-name,.event-detail,.event-note{margin:0 0 8px;color:#666660;font-size:11px;font-weight:300;line-height:1.55}
+.official-link{display:inline-block;margin:0 0 9px;font-size:10px;text-decoration:underline}
+.event-note{padding-top:9px;border-top:1px solid rgba(22,22,20,.15)}.event-note b{margin-right:7px;color:var(--ink);font-size:9px;font-weight:500}
+.notes{min-height:225px}.notes h2{margin-bottom:24px}.notes ul{margin:0;padding:0 0 0 18px;display:grid;gap:12px}.notes li{padding-left:2px;font-size:12px;font-weight:300;line-height:1.55}
+.transport-modal{max-height:88vh;overflow:auto}.transport-content{margin-top:25px;display:grid;gap:8px}.transport-content>div{padding:13px;display:grid;grid-template-columns:1fr auto;gap:4px 10px;border-radius:5px;background:#deddd7}.transport-content small{grid-column:1/-1;font-size:8px;letter-spacing:.08em}.transport-content strong{font-size:14px;font-weight:400}.transport-content span,.transport-content a{font-size:10px;align-self:center}.transport-content a{text-decoration:underline}.modal-note{margin:14px 0 0!important;color:#666660;font-size:10px!important;line-height:1.5;letter-spacing:0!important}
+
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<main class="app-shell tone-lime">
+<header class="topbar"><a class="brand" href="#top">FUKUOKA<span>↗</span></a><p class="trip-range">SEP 10—14<br>2026 / 5 DAYS</p><button class="menu-button" aria-label="開啟交通資訊"><svg viewBox="0 0 24 24"><path d="M6 16h12M7 19h.01M17 19h.01M6 16V7.5C6 6.1 7.1 5 8.5 5h7C16.9 5 18 6.1 18 7.5V16M7 10h10M5 13h1m12 0h1"/></svg></button></header>
+<a class="hotel-bar" href="https://maps.app.goo.gl/iPnvi2LSVRy6TkC56" target="_blank" rel="noreferrer"><span><small>STAY / 09.10—09.14</small><strong>博多祗園大和魯內飯店</strong><em>ダイワロイネットホテル博多祇園</em></span><b>MAP ↗</b></a>
+<section class="intro" id="top"><div><p class="eyebrow">PERSONAL TRIP PLANNER</p><h1>福岡<br>旅遊行程</h1></div><div class="geo-mark"><span>33.5902° N</span><span>130.4017° E</span></div><span class="flower flower-one">✣</span><span class="flower flower-two">✦</span></section>
+<nav class="date-tabs" aria-label="選擇行程日期"></nav>
+<section class="day-heading"></section>
+<p class="traffic-note">交通時間為預估，當天請依 Google Maps 與實際班次調整。</p>
+<section class="schedule"></section>
+<aside class="notes"></aside>
+<footer><span>FUKUOKA TRIP / 2026</span><span>PRIVATE ITINERARY</span></footer>
+<div class="modal-backdrop" hidden><section class="transport-modal" role="dialog" aria-modal="true"><button class="modal-close" aria-label="關閉交通資訊">×</button><p>TRANSPORTATION</p><h2>交通資訊</h2><div class="transport-content"><div><small>去程｜09.10</small><strong>AK1510</strong><span>TPE 12:00 → FUK 15:20</span></div><div><small>回程｜09.14</small><strong>AK1511</strong><span>FUK 16:20 → TPE 17:50</span></div><div><small>住宿位置</small><strong>祇園站 3 號出口附近</strong><a href="https://maps.app.goo.gl/iPnvi2LSVRy6TkC56" target="_blank" rel="noreferrer">飯店地圖 ↗</a></div></div><p class="modal-note">交通時間皆為預估，請依當日 Google Maps、實際班次與路況調整。</p></section></div>
+</main>
+<script>
+const H="https://maps.app.goo.gl/iPnvi2LSVRy6TkC56",D="https://maps.app.goo.gl/YLSKwE9fXAXLYLHL9";
+const days=[
+{date:"09.10",week:"THU",label:"DAY 01",tone:"lime",theme:"抵達福岡／軟銀棒球賽／牛腸鍋",items:[
+{time:"15:20～16:50",name:"抵達福岡機場／前往飯店",type:"航班／交通",map:H,detail:"AirAsia AK1510｜台北 TPE 12:00 → 福岡 FUK 15:20｜目的地：博多祗園大和魯內飯店",note:"入境及領取行李後，直接搭計程車前往飯店。"},
+{time:"16:50～17:40",name:"飯店寄放行李／前往福岡巨蛋",type:"住宿／交通",map:D,note:"快速寄放行李後，直接搭計程車前往福岡巨蛋。"},
+{time:"17:40～18:00",name:"HAWKS STORE",type:"球隊商店／購物",map:D,note:"商店 19:00 關門，務必在比賽前先逛。"},
+{time:"18:00～約21:30",name:"福岡軟銀鷹 vs 北海道日本火腿鬥士",type:"棒球賽",map:D,note:"18:00 開打，結束時間依比賽狀況調整。"},
+{time:"約21:30～22:45",name:"前往天神／元祖もつ鍋楽天地 天神西通り店",type:"已預約晚餐／牛腸鍋",map:"https://maps.app.goo.gl/xVVYd1yKCExyijtW7",status:"已預約",note:"預約時間 22:45；若比賽延長，離場後直接搭計程車前往。"}
+],notes:["確認航班狀態及網路連線。","飯店只快速寄放行李，不停留整理。","記得先逛 HAWKS STORE。","確認 22:45 樂天地預約資訊。"]},
+{date:"09.11",week:"FRI",label:"DAY 02",tone:"lilac",theme:"預約早餐／太宰府／天神畫廊與百貨",items:[
+{time:"08:45～09:50",name:"食堂 おわん",type:"已預約早餐／日式定食",map:"https://maps.app.goo.gl/TXfW5A5JgY4v3iHS9",status:"已預約",note:"從飯店步行前往；預約時間 09:00，不可遲到。"},
+{time:"09:50～10:35",name:"THE FULL FULL HAKATA／返回飯店寄放麵包",type:"預訂麵包取貨",map:"https://maps.app.goo.gl/ErkNUKLJit7C5gMj7",note:"領取明太子麵包後，先帶回飯店寄放。"},
+{time:"10:35～11:40",name:"前往太宰府／太宰府表參道",type:"交通／觀光",map:"https://www.google.com/maps/search/?api=1&query=太宰府駅",detail:"交通路線：祇園站 → 天神站 → 西鐵福岡（天神）站 → 西鐵二日市站 → 太宰府站"},
+{time:"11:40～12:20",name:"太宰府天滿宮",jp:"太宰府天満宮",type:"神社／參拜",map:"https://www.google.com/maps/search/?api=1&query=太宰府天満宮"},
+{time:"12:20～12:45",name:"やす武本店",type:"梅枝餅／太宰府名物",map:"https://www.google.com/maps/search/?api=1&query=梅ヶ枝餅+やす武本店",note:"營業時間約 08:30～18:00，不定休。"},
+{time:"12:45～13:30",name:"太宰府表參道自由逛",type:"觀光／商店街",note:"可購買小吃，不安排需要久候的餐廳。"},
+{time:"13:30～15:40",name:"返回天神／gallery UG Fukuoka",type:"畫廊",map:"https://maps.app.goo.gl/pdxDrkyoLxm6LqRi8",note:"最晚 13:50 前搭上回程電車；畫廊位於大丸福岡天神店東館 5 樓。"},
+{time:"15:40～17:30",name:"ONE FUKUOKA BLDG.",type:"百貨／購物",map:"https://maps.app.goo.gl/zUqBdhcH62WB8emP7",note:"從大丸步行前往；商店營業至 20:00。"},
+{time:"17:30～19:30",name:"福岡 PARCO 新館",type:"百貨／購物",map:"https://maps.app.goo.gl/mu86RTfZgZFJinNs7",note:"與 ONE FUKUOKA 相鄰；物販原則營業至 20:30。"},
+{time:"19:30～22:00",name:"Yakitori to Irori Kurofune",jp:"焼鳥とイロリ くろ船",type:"晚餐／居酒屋／燒鳥",map:"https://maps.app.goo.gl/a889K7rJxenuAcJb7",note:"從 PARCO 步行前往；預計 20:00 用餐，營業至 24:00。"}
+],notes:["食堂おわん已預約 09:00，不可遲到。","記得領取預訂的明太子麵包。","確認 gallery UG 當期展覽內容。","百貨記得幫老媽採買內衣。","去找想買的 NOIR 髮油。","確認 Kurofune 是否完成預約。"]},
+{date:"09.12",week:"SAT",label:"DAY 03",tone:"mint",theme:"高千穗秘境一日遊／努努雞宵夜",items:[
+{time:"07:00～08:00",name:"早餐／前往旅行團集合地點",type:"早餐／集合",map:"https://maps.app.goo.gl/m5Vzx9PVVGbXgEpP9",detail:"目的地：LAWSON 福岡東方飯店店",note:"建議前一晚先買早餐；07:45 抵達並完成報到。"},
+{time:"08:00～約18:00",name:"九州高千穗秘境一日遊",type:"一日旅行團",map:"https://maps.app.goo.gl/m5Vzx9PVVGbXgEpP9",detail:"集合及解散：LAWSON 福岡東方飯店店｜高千穗小火車／高千穗峽谷／高千穗峽遊船體驗／天巖戶神社",note:"實際順序及返回時間依旅行團與交通狀況調整。"},
+{time:"約18:00後",name:"返回博多站／努努鶏 博多マイング店",type:"冷凍炸雞／晚餐或宵夜",map:"https://maps.app.goo.gl/GP9cvXsDE6SgV6tW6",note:"旅行團解散後前往購買，帶回飯店直接食用，不需加熱。"},
+{time:"購買完成後",name:"返回飯店／自由晚餐",type:"彈性行程",map:H,status:"彈性行程"}
+],notes:["前一晚準備早餐、水、雨具及暈車藥。","確認旅行團憑證、集合通知及當日天氣。","07:45 抵達集合地點。","確認小火車及峽谷遊船是否正常開放。","回到博多站後記得購買努努雞。"]},
+{date:"09.13",week:"SUN",label:"DAY 04",tone:"orange",theme:"福岡市美術館／舞鶴公園跳蚤市場／藥院巡禮",items:[
+{time:"07:50～09:00",name:"Bread, Espresso & Hakata &&",jp:"パンとエスプレッソと博多っと",type:"早餐／早午餐／咖啡廳",map:"https://maps.app.goo.gl/vKkWHcpFMme7ks1L8",note:"從飯店步行前往；不能預約，建議 08:00 開店時抵達。"},
+{time:"09:00～10:45",name:"前往福岡市美術館／參觀展覽",type:"美術館",map:"https://maps.app.goo.gl/W9nNWJjapJ1g6pzYA",note:"搭地下鐵前往；美術館 09:30 開館。"},
+{time:"10:45～12:05",name:"舞鶴公園跳蚤市場",jp:"舞鶴公園フリマ",type:"跳蚤市場／古著／二手雜貨",map:"https://www.google.com/maps/search/?api=1&query=舞鶴公園+三ノ丸広場",official:"https://fukuokacitymarket.com/events/9-13-%E8%88%9E%E9%B6%B4%E5%85%AC%E5%9C%92%E3%83%95%E3%83%AA%E3%83%9E/",detail:"地點：舞鶴公園 三之丸廣場",note:"從美術館步行前往；活動時間 10:00～16:00。"},
+{time:"12:05～13:15",name:"うどん 杵むら",type:"午餐／烏龍麵／烏東飯",map:"https://maps.app.goo.gl/kYNrRKmiUMXFetC97",note:"從市集搭計程車前往；午餐營業 11:30～15:00，一定要吃烏東飯。"},
+{time:"13:15～14:10",name:"PRINCE of the FRUIT",type:"水果聖代／咖啡廳",map:"https://maps.app.goo.gl/Ko9UFAYHMjR9d2jT6",status:"條件式行程",note:"從杵むら步行前往；候位超過 30 分鐘則取消。"},
+{time:"14:15～14:45",name:"NONE TOO SOON LIFE & OBJECT",type:"選品店",map:"https://maps.app.goo.gl/AMcnrr7SXEPKuEBb6",note:"營業約 11:00～19:30，不定休。"},
+{time:"14:50～15:20",name:"OYATUYA.U 薬院店",type:"糕餅／咖啡廳",map:"https://maps.app.goo.gl/Td5T1ksTYMnHrkww6",note:"建議外帶糕點。"},
+{time:"15:30～16:00",name:"ALSO MOONSTAR",type:"鞋店／選品店",map:"https://maps.app.goo.gl/ASDWBHeCq11apZFH6",note:"營業約 11:00～19:00。"},
+{time:"16:10～16:40",name:"HIGHTIDE STORE Fukuoka",type:"文具／選品店",map:"https://maps.app.goo.gl/9NKqHpZ4dJ7DvRgd7",note:"營業約 11:00～19:00，不定休。"},
+{time:"16:45～17:15",name:"yocka",type:"襪子／選物店",map:"https://maps.app.goo.gl/f2HeTmT6dKDiQr1x5",status:"條件式行程",note:"非每日固定營業，出發前確認官方公告。"},
+{time:"17:15～18:20",name:"もち吉博多本店",type:"豆皮麻糬／晚間點心",map:"https://maps.app.goo.gl/jYmzanfR2pnkrrZ48",note:"從白金搭計程車前往；19:00 關門，購買後當晚食用。"},
+{time:"19:00",name:"燒肉KAKURA 祇園町店",type:"晚餐／燒肉",map:"https://maps.app.goo.gl/upANvqLwRGuDtrrN8",note:"19:00 一定要準時到的部門聚餐。"},
+{time:"晚餐後",name:"唐吉訶德 中洲店",type:"購物",map:"https://maps.app.goo.gl/vQ2bAKSGKJiHXqNL7",note:"伴手禮＋禮物採買的行程，漏買的話可以隔天一早去買。"}
+],notes:["確認跳蚤市場是否受天候影響。","市集準備少量現金及環保袋。","確認 yocka 當天是否營業。","水果聖代候位超過 30 分鐘就取消。","記得在もち吉 19:00 關門前抵達。"]},
+{date:"09.14",week:"MON",label:"DAY 05",tone:"blue",theme:"如水庵／腳印蛋包飯／返台",items:[
+{time:"08:30～09:25",name:"整理行李／如水庵 博多站前本店",type:"伴手禮／大福",map:"https://maps.app.goo.gl/HjG2B67nmJ8ataWf7",note:"09:00 開門，季節大福可能提早售完。"},
+{time:"09:25～10:30",name:"返回飯店／完成行李整理及退房",type:"住宿",map:H,note:"10:30 前退房並將行李寄放櫃檯。"},
+{time:"10:30～12:25",name:"いくら博多店 はんばーぐとおむらいすのお店",type:"午餐／腳印蛋包飯",map:"https://maps.app.goo.gl/1Zvh9bjFDpzMctjr6",note:"提前前往現場候位；11:30 開門，若 11:45 仍無法入座則取消。"},
+{time:"12:25～13:10",name:"返回飯店取行李／前往福岡機場",type:"交通／機場",detail:"目的地：福岡機場國際線航廈",note:"取完行李後，直接搭計程車前往國際線航廈。"},
+{time:"13:10～16:20",name:"福岡機場報到／安檢／出境",type:"機場",note:"若取消蛋包飯，改至機場用餐。"},
+{time:"16:20～17:50",name:"福岡起飛／抵達桃園機場",type:"航班",detail:"AirAsia AK1511｜福岡 FUK 16:20 → 台北 TPE 17:50"}
+],notes:["確認護照、錢包及伴手禮沒有遺漏。","如水庵開門後先購買季節大福。","蛋包飯若 11:45 仍未入座就放棄。","12:40 前取完行李並搭車前往機場。","確認行李重量及液體攜帶規定。"]}
+];
+
+let activeDay=0;
+let completed=new Set();
+try{completed=new Set(JSON.parse(localStorage.getItem("fukuoka-completed")||"[]"))}catch{}
+const shell=document.querySelector(".app-shell");
+const tabs=document.querySelector(".date-tabs");
+const heading=document.querySelector(".day-heading");
+const schedule=document.querySelector(".schedule");
+const notes=document.querySelector(".notes");
+function escapeHTML(v){return String(v).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+function render(){
+ const day=days[activeDay];
+ shell.className="app-shell tone-"+day.tone;
+ tabs.innerHTML=days.map((x,i)=>'<button data-day="'+i+'" class="'+(i===activeDay?'active':'')+'"><span>'+x.week+'</span><strong>'+x.date+'</strong></button>').join("");
+ heading.innerHTML='<div><p>'+day.label+' / '+day.week+'</p><h2>'+day.date+'</h2><h3>'+escapeHTML(day.theme)+'</h3></div><div class="shape"><span>'+(activeDay+1)+'</span></div><span class="mini-flower">✣</span>';
+ schedule.innerHTML=day.items.map((x,i)=>{
+  const key=day.date+"-"+i,done=completed.has(key);
+  return '<article class="schedule-card '+(done?'completed':'')+'" tabindex="0" role="button" data-key="'+key+'"><div class="time-block"><span>'+String(i+1).padStart(2,"0")+'</span><time>'+escapeHTML(x.time)+'</time></div><div class="event-block"><div class="card-status"><p class="event-type">'+escapeHTML(x.type)+'</p><span>'+(done?'✓ 已完成':'○ 點擊完成')+'</span></div>'+(x.status?'<span class="status-badge">'+escapeHTML(x.status)+'</span>':'')+'<h3>'+escapeHTML(x.name)+'</h3>'+(x.jp?'<p class="jp-name">'+escapeHTML(x.jp)+'</p>':'')+(x.detail?'<p class="event-detail">'+escapeHTML(x.detail)+'</p>':'')+(x.official?'<a class="official-link" href="'+x.official+'" target="_blank" rel="noreferrer">活動官方資訊 ↗</a>':'')+(x.note?'<p class="event-note"><b>注意</b>'+escapeHTML(x.note)+'</p>':'')+(x.map?'<a class="map-button" href="'+x.map+'" target="_blank" rel="noreferrer"><span>●</span> MAP ↗</a>':'')+'</div></article>'
+ }).join("");
+ notes.innerHTML='<p>DAY NOTES</p><h2>當日備忘</h2><ul>'+day.notes.map(x=>'<li>✦ '+escapeHTML(x)+'</li>').join("")+'</ul>';
+ tabs.querySelectorAll("button").forEach(b=>b.onclick=()=>{activeDay=Number(b.dataset.day);render();scrollTo({top:0,behavior:"smooth"})});
+ schedule.querySelectorAll(".schedule-card").forEach(card=>{
+  const toggle=()=>{const k=card.dataset.key;completed.has(k)?completed.delete(k):completed.add(k);localStorage.setItem("fukuoka-completed",JSON.stringify([...completed]));render()};
+  card.onclick=e=>{if(!e.target.closest("a"))toggle()};
+  card.onkeydown=e=>{if((e.key==="Enter"||e.key===" ")&&!e.target.closest("a")){e.preventDefault();toggle()}};
+ });
+}
+document.querySelector(".menu-button").onclick=()=>document.querySelector(".modal-backdrop").hidden=false;
+document.querySelector(".modal-close").onclick=()=>document.querySelector(".modal-backdrop").hidden=true;
+document.querySelector(".modal-backdrop").onclick=e=>{if(e.target===e.currentTarget)e.currentTarget.hidden=true};
+render();
+
+</script>
+</body>
+</html>
